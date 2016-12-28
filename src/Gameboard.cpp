@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 
 #include "Gameboard.h"
 
@@ -9,7 +8,7 @@ void Gameboard::outputBoard() {
         for (int j = 0; j < kRow; j++) {
             s += board[i][j];
         }
-        std::cout << s << std::endl;
+        std::cout << s << '\n';
     }
 }
 
@@ -26,6 +25,6 @@ Gameboard::Gameboard() {
     }
 }
 
-Gameboard::setChar(char ch, int row, int col) {
+void Gameboard::setChar(char ch, int row, int col) {
     board[row][col] = ch;
 }
