@@ -1,16 +1,18 @@
 #pragma once
-#include <iostream>
 
-const int MAXLENGTH = 30;
+#include "Gameboard.h"
 
 class Snake {
 public:
-	bool LEFT, RIGHT, UP, DOWN;
-	int length;
-	char snake[MAXLENGTH];
-    Snake();
-	void eatfruit() {
-		snake[length] = 'O';
-		length++;
-	}
+    void init(Gameboard);
+    bool move(Gameboard&);
+    void changeDirection(int);
+
+    // Snake head details
+    int headxpos;
+    int headypos;
+    int direction;
+
+    // Amount of length the snake has (How long the body is)
+    int length = 1;
 };

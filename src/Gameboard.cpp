@@ -1,30 +1,43 @@
 #include <iostream>
+#include <ctime>
 
 #include "Gameboard.h"
 
-void Gameboard::outputBoard() {
-    for (int i = 0; i < kCol; i++) {
-        std::string s;
-        for (int j = 0; j < kRow; j++) {
-            s += board[i][j];
-        }
-        std::cout << s << '\n';
+void Gameboard::init() {
+    srand(time(NULL));
+
+    for (int x = 0; x < kMapSize; x++) {
+        board[x] = 0;
     }
+
+    // Places top and bottom walls
+    for (int x = 0; x < kMapWidth; ++x) {
+        board[x] = -1;
+        board[x + (kMapHeight - 1) * kMapWidth] = -1;
+    }
+
+    // Places left and right walls
+    for (int y = 0; y < kMapHeight; y++) {
+        board[0 + y * kMapWidth] = -1;
+        board[(kMapWidth - 1) + y * kMapWidth] = -1;
+    }
+
+    // Generates first length
+    generateFood();
 }
 
-Gameboard::Gameboard() {
-    for (int i = 0; i < kRow*kCol; i++) {
-        board[i/128][i%128] = ' ';
-    }
+// Generates new snakeLength on board
+void Gameboard::generateFood() {
+    int x = 0;
+    int y = 0;
+    do {
+        // Generate random x and y values within the board
+        x = rand() % (kMapWidth - 2) + 1;
+        y = rand() % (kMapHeight - 2) + 1;
 
-    for (int i = 0; i < 128; i++) {
-        board[0][i] = '-';
-        board[127][i] = '-';
-        board[i][0] = '|';
-        board[i][127] = '|';
-    }
-}
+        // If location is not free try again
+    } while (board[x + y * kMapWidth] != 0);
 
-void Gameboard::setChar(char ch, int row, int col) {
-    board[row][col] = ch;
+    // Place new snakeLength
+    board[x + y * kMapWidth] = -2;
 }

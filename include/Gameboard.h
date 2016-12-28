@@ -1,15 +1,16 @@
 #pragma once
-#include <iostream>
-#include <memory>
 
-const int kRow = 128;
-const int kCol = 128;
+// Map dimensions
+const int kMapWidth = 32;
+const int kMapHeight = 32;
+
+const int kMapSize = kMapWidth * kMapHeight;
 
 class Gameboard {
-private:
-    char board[kRow][kCol];
 public:
-    Gameboard();
-    void outputBoard();
-    void setChar(char, int, int);
+    void init();
+    void generateFood();
+
+    // The tile values for the board
+    int board[kMapSize];
 };
