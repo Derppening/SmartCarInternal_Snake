@@ -6,7 +6,7 @@ void Snake::init(Gameboard gb) {
     headypos = 16;
     direction = 0;
     length = 1;
-    gb.board[headxpos + headypos * kMapWidth] = 1;
+    gb.board[headxpos][headypos] = 1;
 }
 
 // Changes snake direction from input

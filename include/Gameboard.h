@@ -1,10 +1,10 @@
-#pragma once
+#ifndef GAMBOARD_H_
+#define GAMBOARD_H_
+//dimensions
+const int Width = 32;
+const int Height = 32;
 
-// Map dimensions
-const int kMapWidth = 32;
-const int kMapHeight = 32;
-
-const int kMapSize = kMapWidth * kMapHeight;
+const int Size = Width * Height;
 
 class Gameboard {
 public:
@@ -12,5 +12,7 @@ public:
     void generateFood();
 
     // The tile values for the board
-    int board[kMapSize];
+    int board[Width][Height];
 };
+
+#endif

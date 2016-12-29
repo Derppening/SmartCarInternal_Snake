@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GAMEMANAGER_H_
+#define GAMEMANAGER_H_
 
 #include "Snake.h"
 #include "Gameboard.h"
@@ -12,6 +13,7 @@ private:
     void initBoard();
     void initSnake(Snake);
     void clearScreen();
-    void printMap(Gameboard, int);
-    char getMapValue(int);
+    void printMap(Gameboard, Snake);
+    char getMapValue(int, bool&);
 };
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SNAKE_H_
+#define SNAKE_H_
 
 #include "Gameboard.h"
 
@@ -16,3 +17,5 @@ public:
     // Amount of length the snake has (How long the body is)
     int length = 1;
 };
+
+#endif

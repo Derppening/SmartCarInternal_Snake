@@ -1,8 +1,8 @@
 #include "GameManager.h"
 
 int main() {
-    GameManager gm;
-    gm.run();
+    GameManager Mr_David;
+    Mr_David.run();
 
     return 0;
 }
