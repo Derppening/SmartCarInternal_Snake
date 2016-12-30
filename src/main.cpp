@@ -1,8 +1,11 @@
+#include "../include/main.h"
+
 #include "GameManager.h"
 
 int main() {
-    GameManager Mr_David;
-    Mr_David.run();
+    // summon a GameManager and start it
+    GameManager gm;
+    gm.run();
 
     return 0;
 }

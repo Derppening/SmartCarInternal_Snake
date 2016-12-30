@@ -1,18 +1,27 @@
-#ifndef GAMBOARD_H_
-#define GAMBOARD_H_
-//dimensions
-const int Width = 32;
-const int Height = 32;
+#pragma once
 
-const int Size = Width * Height;
+const int kWidth = 32;
+const int kHeight = 32;
 
-class Gameboard {
-public:
-    void init();
-    void generateFood();
-
-    // The tile values for the board
-    int board[Width][Height];
+enum GameboardChar {
+    blank = 0,
+    wall = -1,
+    food = -2
 };
 
-#endif
+class Gameboard {
+ private:
+    int board[kWidth][kHeight];  // 2D array containing tile values
+
+    int genRandomX();
+    int genRandomY();
+ public:
+    Gameboard();
+    void generateFood();
+    void decreaseValue(int x, int y) { --board[x][y]; }
+
+    char getMapValue(int, bool);
+    int getValue(int x, int y) { return board[x][y]; }
+
+    void setValue(int x, int y, int val) { board[x][y] = val; }
+};

@@ -1,43 +1,99 @@
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
 #include "Gameboard.h"
 
-void Gameboard::init() {
-	srand(time(NULL));
+#include <functional>
+#include <random>
+#include <chrono>
 
-	for (int i = 0; i < Width; i++)
-		for (int j = 0; j < Height; j++)
-			board[i][j] = 0;
+// RNG for generating food locations
+std::default_random_engine re;
+std::uniform_int_distribution<int> uid_x(0, kHeight - 2);
+std::uniform_int_distribution<int> uid_y(0, kWidth - 2);
 
-	// Places top and bottom walls
-	for (int x = 0; x < Width; ++x) {
-		board[0][x] = -1;
-		board[Width-1][x] = -1;
-	}
+/**
+ * Default constructor for Gameboard
+ *
+ * Resets randomizer, initializes board[][], and generates food
+ */
+Gameboard::Gameboard() {
+    // sets seed of random engine using current time
+    re.seed((unsigned)std::chrono::system_clock::now().time_since_epoch().count());
 
-	// Places left and right walls
-	for (int y = 0; y < Height; y++) {
-		board[y][0] = -1;
-		board[y][Height-1] = -1;
-	}
+    // reset the array
+    for (int i = 0; i < kWidth; ++i) {
+        for (int j = 0; j < kHeight; ++j) {
+            board[i][j] = GameboardChar::blank;
+        }
+    }
 
-	// Generates first length
-	generateFood();
+    // place top/bottom walls
+    for (int x = 0; x < kHeight; ++x) {
+        board[x][0] = GameboardChar::wall;
+        board[x][kHeight-1] = GameboardChar::wall;
+    }
+
+    // place left/right walls
+    for (int y = 0; y < kWidth; ++y) {
+        board[0][y] = GameboardChar::wall;
+        board[kWidth-1][y] = GameboardChar::wall;
+    }
+
+    // generate first food
+    generateFood();
 }
 
-// Generates new snakeLength on board
+/**
+ * Generates a piece of food on the map
+ */
 void Gameboard::generateFood() {
-	int x = 0;
-	int y = 0;
-	do {
-		// Generate random x and y values within the board
-		x = rand() % (Width - 2) + 1;
-		y = rand() % (Height - 2) + 1;
+    int x = 0;
+    int y = 0;
 
-		// If location is not free try again
-	} while (board[x][y]);
+    // randomize the x,y-coordinates until it is valid (i.e. board[x][y] == 0)
+    do {
+        x = genRandomX() + 1;
+        y = genRandomY() + 1;
+    } while (board[x][y]);
 
-	// Place new snakeLength
-	board[x][y] = -2;
+    // set coords to be food
+    board[x][y] = GameboardChar::food;
+}
+
+/**
+ * Returns graphical character for display from board value
+ *
+ * @param value Value in the Gameboard array
+ * @param head True if the tile is a head
+ * @return Character displayed in console
+ */
+char Gameboard::getMapValue(int value, bool head) {
+    if (value > 0) {
+        return head ? 'X' : 'o';
+    }
+
+    switch (value) {
+        case GameboardChar::wall:
+            return 'F';
+        case GameboardChar::food:
+            return '$';
+        default:
+            return ' ';
+    }
+}
+
+/**
+ * Generates a random value based on the board height
+ *
+ * @return Random integer [0,kHeight-2]
+ */
+int Gameboard::genRandomX() {
+    return uid_x(re);
+}
+
+/**
+ * Generates a random value based on the board width
+ *
+ * @return Random integer [0,kWidth-2]
+ */
+int Gameboard::genRandomY() {
+    return uid_y(re);
 }

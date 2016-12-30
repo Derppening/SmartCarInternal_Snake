@@ -1,21 +1,35 @@
-#ifndef SNAKE_H_
-#define SNAKE_H_
+#pragma once
 
 #include "Gameboard.h"
 
-class Snake {
-public:
-    void init(Gameboard);
-    bool move(Gameboard&);
-    void changeDirection(int);
-
-    // Snake head details
-    int headxpos;
-    int headypos;
-    int direction;
-
-    // Amount of length the snake has (How long the body is)
-    int length = 1;
+enum Directions {
+    up = 0,
+    right = 1,
+    down = 2,
+    left = 3
 };
 
-#endif
+class Snake {
+ private:
+    int headxpos;  // X-coordinate of the snake head
+    int headypos;  // Y-coordinate of the snake head
+    int direction;  // direction the snake is facing
+    int length;  // current length of the snake
+ public:
+    explicit Snake(Gameboard gb) : headxpos(kHeight/2), headypos(kWidth/2),
+            direction(0), length(1) {
+        gb.setValue(headxpos, headypos, 1);
+    }
+    void changeDirection(int);
+
+    int getHeadXPos() { return headxpos; }
+    int getHeadYPos() { return headypos; }
+    int getDirection() { return direction; }
+    int getLength() { return length; }
+
+    void increaseLength() { length++; }
+    void setHeadPos(int x, int y) {
+        headxpos = x;
+        headypos = y;
+    }
+};
