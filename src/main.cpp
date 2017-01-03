@@ -1,6 +1,5 @@
 #include "../include/main.h"
-
-#include "GameManager.h"
+#include "../include/GameManager.h"
 
 int main() {
     // summon a GameManager and start it

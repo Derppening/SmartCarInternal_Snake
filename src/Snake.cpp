@@ -1,4 +1,4 @@
-#include "Snake.h"
+#include "../include/Snake.h"
 
 // Changes snake direction from input
 void Snake::changeDirection(int key) {

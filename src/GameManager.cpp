@@ -1,4 +1,4 @@
-#include "GameManager.h"
+#include "../include/GameManager.h"
 
 #include <conio.h>
 #include <chrono>
@@ -51,7 +51,7 @@ void GameManager::run() {
 
         if (debugMode) {
             cout << "\nFrame Number: " << frameNumber << endl;
-            cout << "Frame Time: " << renderTime << " ms" << endl;
+            cout << "Frame Time: " << renderTime << " us" << endl;
         }
 
         // wait 0.5 seconds
@@ -59,7 +59,7 @@ void GameManager::run() {
     }
 
     cout << "\t\t!!! Game over !!!" << endl;
-    cout << "Press [ENTER] to continue..." << endl;
+    cout << "Press [ENTER] to exit..." << endl;
     std::cin.ignore();
 }
 

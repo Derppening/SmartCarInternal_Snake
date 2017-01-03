@@ -1,8 +1,8 @@
-#include "Gameboard.h"
+#include "../include/Gameboard.h"
 
+#include <chrono>
 #include <functional>
 #include <random>
-#include <chrono>
 
 // RNG for generating food locations
 std::default_random_engine re;
