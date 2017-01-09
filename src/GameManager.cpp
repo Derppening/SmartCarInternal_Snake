@@ -50,8 +50,8 @@ void GameManager::run() {
         cout << "Snake length: " << s.getLength() << endl;
 
         if (debugMode) {
-            cout << "\nFrame Number: " << frameNumber << endl;
-            cout << "Frame Time: " << renderTime << " us" << endl;
+            cout << endl << "Frame Number: " << frameNumber << endl;
+            cout << "Frame Time: " << renderTime << " ms" << endl;
         }
 
         // wait 0.5 seconds
@@ -94,7 +94,6 @@ void GameManager::printBoard(Gameboard gb, Snake s) {
  */
 bool GameManager::update(Gameboard &gb, Snake &s) {
     int dx = 0, dy = 0;
-    bool running = true;
 
     // calculate the snake's next step
     switch (s.getDirection()) {
@@ -123,6 +122,8 @@ bool GameManager::update(Gameboard &gb, Snake &s) {
     int newx = s.getHeadXPos() + dx;
     int newy = s.getHeadYPos() + dy;
 
+    bool running = true;
+
     // if snake's head will touch a food, increase its length and regen the food
     if (gb.getValue(newx, newy) == GameboardChar::food) {
         s.increaseLength();
@@ -133,7 +134,8 @@ bool GameManager::update(Gameboard &gb, Snake &s) {
     }
 
     // move head to new location, and set the tile value to the snake's length
-    // snake's head will always have the value s.length
+    // snake's head will always have the value s.length, subsequent bodies have
+    // value = s.length - difference
     s.setHeadPos(newx, newy);
     gb.setValue(s.getHeadXPos(), s.getHeadYPos(), s.getLength() + 1);
 

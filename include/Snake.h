@@ -11,22 +11,24 @@ enum Directions {
 
 class Snake {
  private:
-    int headxpos;  // X-coordinate of the snake head
-    int headypos;  // Y-coordinate of the snake head
+    int headxpos;   // X-coordinate of the snake head
+    int headypos;   // Y-coordinate of the snake head
     int direction;  // direction the snake is facing
-    int length;  // current length of the snake
+    int length;     // current length of the snake
  public:
-    explicit Snake(Gameboard gb) : headxpos(kHeight/2), headypos(kWidth/2),
-            direction(0), length(1) {
+    Snake(Gameboard gb) : headxpos(kHeight/2), headypos(kWidth/2),
+            direction(0), length(3) {
         gb.setValue(headxpos, headypos, 1);
     }
     void changeDirection(int);
 
+    // getters
     int getHeadXPos() { return headxpos; }
     int getHeadYPos() { return headypos; }
     int getDirection() { return direction; }
     int getLength() { return length; }
 
+    // setters
     void increaseLength() { length++; }
     void setHeadPos(int x, int y) {
         headxpos = x;

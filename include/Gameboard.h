@@ -20,8 +20,10 @@ class Gameboard {
     void generateFood();
     void decreaseValue(int x, int y) { --board[x][y]; }
 
+    // getters
     char getMapValue(int, bool);
     int getValue(int x, int y) { return board[x][y]; }
 
+    // setters
     void setValue(int x, int y, int val) { board[x][y] = val; }
 };

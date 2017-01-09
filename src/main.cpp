@@ -1,4 +1,3 @@
-#include "../include/main.h"
 #include "../include/GameManager.h"
 
 int main() {
